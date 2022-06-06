@@ -65,12 +65,21 @@ if(canUseChip(CHIP_FLASH, enemy) and dist > 1) { // don't selfkill lol
 	useChip(CHIP_FLASH, enemy)
 } 
 if(canUseChip(CHIP_FLAME, enemy)) {
+	useChip(CHIP_FLAME, enemy) // no cooldown so keep using lol
+	useChip(CHIP_FLAME, enemy)
+	useChip(CHIP_FLAME, enemy)
 	useChip(CHIP_FLAME, enemy)
 }
 if(canUseChip(CHIP_ICE, enemy)) {
+	useChip(CHIP_ICE, enemy) // no cooldown so keep using lol
+	useChip(CHIP_ICE, enemy)
+	useChip(CHIP_ICE, enemy)
 	useChip(CHIP_ICE, enemy)
 }
 if(canUseChip(CHIP_SPARK, enemy)) {
+	useChip(CHIP_SPARK, enemy) // no cooldown so keep using lol
+	useChip(CHIP_SPARK, enemy)
+	useChip(CHIP_SPARK, enemy)
 	useChip(CHIP_SPARK, enemy)
 }
 if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
