@@ -18,6 +18,7 @@ var enemy = getNearestEnemy();
 
 // We move towards him
 while(getMP(ME) > 0){
+	enemy = getNearestEnemy();
 	var mindist = getPathLength(getCell(ME), getCell(enemy))
 	if(canUseWeapon(enemy)){
 		break
@@ -86,4 +87,4 @@ while(getMP(ME) > 0 and getLife(enemy) >0 and getCellDistance(getCell(ME), getCe
 }
 if(getLife(enemy) > 0){
 lastdist = getCellDistance(getCell(ME), getCell(enemy))
-	}m
+	}
