@@ -37,6 +37,11 @@ while(getMP(ME) > 0){
 
 var dist = getCellDistance(getCell(ME), getCell(enemy))
 
+if(!canUseWeapon(enemy) and getWeapon() == WEAPON_LASER) {
+	// can happen if we go too close (ie. 1 space adjacent) to enemy?
+	setWeapon(WEAPON_MAGNUM)
+}
+
 if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE + 5) {
 	// 3-turn cooldown chips
 	useChip(CHIP_SOLIDIFICATION, ME)
@@ -84,9 +89,9 @@ if(canUseWeapon(enemy)) {
 		enemy = getNearestEnemy();
 	}
 } else {
-	if (canUseWeapon(WEAPON_PISTOL, enemy) and getWeapon() == WEAPON_LASER) {
-		// switch and fire 3x
-		setWeapon(WEAPON_PISTOL)
+	if (canUseWeapon(WEAPON_MAGNUM, enemy) and getWeapon() == WEAPON_LASER) {
+		// switch and fire
+		setWeapon(WEAPON_MAGNUM)
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
@@ -130,7 +135,7 @@ if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
 enemy = getNearestEnemy();
 // try moving away (max move 4)
 while(getMP(ME) > 0 and getLife(enemy) >0 and getCellDistance(getCell(ME), getCell(enemy)) < ENGAGE_RANGE) {
-	moveAwayFrom(enemy)
+	moveAwayFrom(enemy, 1)
 }
 if(getLife(enemy) > 0){
 lastdist = getCellDistance(getCell(ME), getCell(enemy))
