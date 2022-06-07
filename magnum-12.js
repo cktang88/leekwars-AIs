@@ -24,7 +24,7 @@ while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prev
 	if(canUseWeapon(enemy)){
 		break
 	} 
-	if(true and lineOfSight(ME, enemy)){
+	if(true and lineOfSight(getCell(), getCell(enemy))){
 		if (mindist == ENGAGE_RANGE 
 			and lastdist > getCellDistance(getCell(ME), getCell(enemy)) // prevent draws
 		   ) 
@@ -36,7 +36,7 @@ while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prev
    moveToward(enemy, 1);
 }
 
-var dist = getCellDistance(getCell(ME), getCell(enemy))
+var dist = getCellDistance(getCell(), getCell(enemy))
 
 if(!canUseWeapon(enemy) and getWeapon() == WEAPON_LASER) {
 	// can happen if we go too close (ie. 1 space adjacent) to enemy?
@@ -63,6 +63,7 @@ if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_LASER, enemy)) {
 
 // recalc for multi-enemy battles
 enemy = getNearestEnemy();
+dist = getCellDistance(getCell(), getCell(enemy))
 if(canUseWeapon(enemy)) {
 	if(getWeapon() == WEAPON_MAGNUM){
 		useWeapon(enemy);
@@ -71,8 +72,10 @@ if(canUseWeapon(enemy)) {
 			setWeapon(WEAPON_LASER) // 5 + 1 + 6 = 12 TP
 		} else {
 			debug('Backing up and trying swap')
-			if(getMP(ME) > 0 and lineOfSight(ME, enemy) and getTP() >= 7) { // try moving one space and then swapping if can use this turn
-				moveAwayFrom(enemy, 1)
+			if(getMP(ME) > 0 and lineOfSight(getCell(), getCell(enemy)) and getTP() >= 7) { // try moving one space and then swapping if can use this turn
+				if(dist == 1){
+					moveAwayFrom(enemy, 1)
+				}
 				if(canUseWeapon(WEAPON_LASER, enemy)) {
 					setWeapon(WEAPON_LASER)
 				}
@@ -144,3 +147,10 @@ while(getMP(ME) > 0 and getLife(enemy) >0 and getCellDistance(getCell(ME), getCe
 if(getLife(enemy) > 0){
 lastdist = getCellDistance(getCell(ME), getCell(enemy))
 	}
+
+if(getTurn() % 3 == 1)
+say('Ive been training for this my entire life lol')
+if(getTurn() % 3 == 2)
+say('Ohhhh I see, that is very clever. Anyways watch this...')
+if(getTurn() % 3 == 3)
+say('WTF noooooooooo')
