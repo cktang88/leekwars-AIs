@@ -15,6 +15,14 @@ setWeapon(WEAPON_MAGNUM); // initial weapon
 
 
 var enemy = getNearestEnemy();
+var dist = getCellDistance(getCell(), getCell(enemy))
+
+if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME) * 0.5 and dist > getWeapon(enemy) + getMP(enemy)){
+	debug('retreating')
+	useChip(CHIP_KNOWLEDGE, ME)
+	useChip(CHIP_CURE, ME)
+	moveAwayFrom(enemy) // retreat lmao if <1/2 health
+}
 
 // move towards enemy
 while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prevent inf loops
@@ -35,8 +43,7 @@ while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prev
 	}
    moveToward(enemy, 1);
 }
-
-var dist = getCellDistance(getCell(), getCell(enemy))
+dist = getCellDistance(getCell(), getCell(enemy))
 
 if(!canUseWeapon(enemy) and getWeapon() == WEAPON_LASER) {
 	debug('try swap #1')
@@ -47,6 +54,7 @@ if(!canUseWeapon(enemy) and getWeapon() == WEAPON_LASER) {
 		setWeapon(WEAPON_MAGNUM)
 	}
 }
+dist = getCellDistance(getCell(), getCell(enemy))
 
 if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE + 5) {
 	// 3-turn cooldown chips
