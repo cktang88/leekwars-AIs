@@ -70,7 +70,7 @@ if(canUseWeapon(enemy)) {
 			setWeapon(WEAPON_LASER) // 5 + 1 + 6 = 12 TP
 		} else {
 			debug('Backing up and trying swap')
-			if(getMP(ME) > 0 and lineOfSight(ME, enemy)) { // try moving one space and then swapping
+			if(getMP(ME) > 0 and lineOfSight(ME, enemy) and getTP() >= 7) { // try moving one space and then swapping if can use this turn
 				moveAwayFrom(enemy, 1)
 				if(canUseWeapon(WEAPON_LASER, enemy)) {
 					setWeapon(WEAPON_LASER)
