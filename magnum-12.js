@@ -16,12 +16,16 @@ setWeapon(WEAPON_MAGNUM); // initial weapon
 
 var enemy = getNearestEnemy();
 var dist = getCellDistance(getCell(), getCell(enemy))
+/*
+if(canUseChip(CHIP_PUNY_BULB, enemy)) {
+	summon(CHIP_PUNY_BULB, enemy, )
+}*/
 
-if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME) * 0.5 and dist > getWeapon(enemy) + getMP(enemy)){
+if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
 	useChip(CHIP_CURE, ME)
-	moveAwayFrom(enemy) // retreat lmao if <1/2 health
+	moveAwayFrom(enemy)
 }
 
 // move towards enemy
@@ -157,13 +161,10 @@ if(canUseChip(CHIP_SPARK, enemy)) {
 if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
 	useChip(CHIP_CURE, ME)
 }
-if(canUseChip(CHIP_LEATHER_BOOTS, ME)) {
-	useChip(CHIP_LEATHER_BOOTS, ME)
-
-}
-
-// if(canUseWeapon(WEAPON_PISTOL, enemy) and !canUseWeapon(WEAPON_MACHINE_GUN, enemy)) setWeapon (WEAPON_PISTOL)
-
+/*
+if(canUseChip(CHIP_PUNY_BULB, enemy)) {
+	useChip(CHIP_PUNY_BULB, enemy)
+}*/
 
 enemy = getNearestEnemy();
 // try moving away (max move 4)
