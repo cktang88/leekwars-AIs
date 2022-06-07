@@ -17,9 +17,10 @@ setWeapon(WEAPON_MAGNUM); // initial weapon
 var enemy = getNearestEnemy();
 
 // move towards enemy
-while(getMP(ME) > 0){
+while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prevent inf loops
 	enemy = getNearestEnemy();
 	var mindist = getPathLength(getCell(ME), getCell(enemy))
+
 	if(canUseWeapon(enemy)){
 		break
 	} 
@@ -135,7 +136,10 @@ if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
 enemy = getNearestEnemy();
 // try moving away (max move 4)
 while(getMP(ME) > 0 and getLife(enemy) >0 and getCellDistance(getCell(ME), getCell(enemy)) < ENGAGE_RANGE) {
-	moveAwayFrom(enemy, 1)
+	var actual_move = moveAwayFrom(enemy, 1)
+	if(actual_move == 0){
+		break // prevent inf loops
+	}
 }
 if(getLife(enemy) > 0){
 lastdist = getCellDistance(getCell(ME), getCell(enemy))
