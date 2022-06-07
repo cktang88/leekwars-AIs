@@ -39,8 +39,13 @@ while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prev
 var dist = getCellDistance(getCell(), getCell(enemy))
 
 if(!canUseWeapon(enemy) and getWeapon() == WEAPON_LASER) {
-	// can happen if we go too close (ie. 1 space adjacent) to enemy?
-	setWeapon(WEAPON_MAGNUM)
+	debug('try swap #1')
+	if(dist == 1){
+	    moveAwayFrom(enemy, 1) // try to back up, may fail if cornered
+	}
+	if(!canUseWeapon(enemy)){
+		setWeapon(WEAPON_MAGNUM)
+	}
 }
 
 if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE + 5) {
@@ -71,7 +76,7 @@ if(canUseWeapon(enemy)) {
 		if(canUseWeapon(WEAPON_LASER, enemy)) {
 			setWeapon(WEAPON_LASER) // 5 + 1 + 6 = 12 TP
 		} else {
-			debug('Backing up and trying swap')
+			debug('try swap #2')
 			if(getMP(ME) > 0 and lineOfSight(getCell(), getCell(enemy)) and getTP() >= 7) { // try moving one space and then swapping if can use this turn
 				if(dist == 1){
 					moveAwayFrom(enemy, 1)
