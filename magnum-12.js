@@ -61,8 +61,8 @@ if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
 }
 
 if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_LASER, enemy)) { 
-	// laser > rock > pistol
-	// 2 * laser > rock + 2 * pistol
+	// laser > rock > magnum
+	// 2 * laser > rock + magnum
 	useChip(CHIP_ROCK, enemy)
 } 
 
@@ -111,7 +111,15 @@ if(canUseWeapon(enemy)) {
 }
 
 enemy = getNearestEnemy();
+dist = getCellDistance(getCell(), getCell(enemy))
 // TODO: if afterwards still have some TP left (from motivation), use spell
+// try using boost chips first if have leftover points after shooting
+if(dist <= ENGAGE_RANGE){
+	useChip(CHIP_MOTIVATION, ME)
+	useChip(CHIP_PROTEIN, ME)
+	useChip(CHIP_HELMET, ME)
+}
+
 if(canUseChip(CHIP_FLASH, enemy) and dist > 1) { // don't selfkill lol
 	useChip(CHIP_FLASH, enemy)
 } 
