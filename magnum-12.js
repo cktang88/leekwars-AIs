@@ -21,11 +21,12 @@ if(canUseChip(CHIP_PUNY_BULB, enemy)) {
 	summon(CHIP_PUNY_BULB, enemy, )
 }*/
 
-if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
+if(canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
 	useChip(CHIP_CURE, ME)
-	moveAwayFrom(enemy)
+	moveAwayFrom(enemy, max(0, getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy) - dist + 1))
+	return;
 }
 
 // move towards enemy
