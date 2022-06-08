@@ -73,6 +73,10 @@ if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
 	useChip(CHIP_HELMET, ME)
 }
 
+if(canUseChip(CHIP_STALACTITE, enemy)) { 
+	useChip(CHIP_STALACTITE, enemy) // highest damage
+} 
+
 if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_LASER, enemy)) { 
 	// laser > rock > magnum
 	// 2 * laser > rock + magnum
