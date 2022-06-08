@@ -32,10 +32,14 @@ if(!canUseWeapon(enemy) and getWeapon() == WEAPON_SHOTGUN and canUseWeapon(WEAPO
 }
 var dist = getCellDistance(getCell(ME), getCell(enemy))
 
-if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
-	useChip(CHIP_MOTIVATION, ME)
-	useChip(CHIP_PROTEIN, ME)
-	useChip(CHIP_HELMET, ME)
+if(dist <= ENGAGE_RANGE){
+	var isFullHealth = getLife() == getTotalLife()
+	// don't go into first fight without buff
+	if(!canUseWeapon(enemy) or canUseChip(CHIP_MOTIVATION, ME) and isFullHealth) {
+		useChip(CHIP_MOTIVATION, ME)
+		useChip(CHIP_PROTEIN, ME)
+		useChip(CHIP_HELMET, ME)
+	}
 }
 
 if(canUseChip(CHIP_ROCK, enemy) and getWeapon() != WEAPON_SHOTGUN) { // high damage pref
