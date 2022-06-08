@@ -35,7 +35,9 @@ var dist = getCellDistance(getCell(ME), getCell(enemy))
 if(dist <= ENGAGE_RANGE){
 	var isFullHealth = getLife() == getTotalLife()
 	// don't go into first fight without buff
-	if(!canUseWeapon(enemy) or canUseChip(CHIP_MOTIVATION, ME) and isFullHealth) {
+	if(!canUseWeapon(enemy) 
+	   or canUseChip(CHIP_MOTIVATION, ME) and isFullHealth
+	  ) {
 		useChip(CHIP_MOTIVATION, ME)
 		useChip(CHIP_PROTEIN, ME)
 		useChip(CHIP_HELMET, ME)
@@ -73,6 +75,9 @@ if(canUseChip(CHIP_ICE, enemy)) {
 	useChip(CHIP_ICE, enemy)
 	useChip(CHIP_ICE, enemy)
 	useChip(CHIP_ICE, enemy)
+}
+if(canUseChip(CHIP_PEBBLE, enemy)) {
+	useChip(CHIP_PEBBLE, enemy)
 }
 if(canUseChip(CHIP_SPARK, enemy)) {
 	useChip(CHIP_SPARK, enemy) // no cooldown so keep using lol
