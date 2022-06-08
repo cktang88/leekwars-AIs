@@ -23,7 +23,7 @@ while(getMP(ME) > 0){
 	if(canUseWeapon(enemy)){
 		break
 	} 
-	if(true and lineOfSight(ME, enemy)){
+	if(true and lineOfSight(getCell(), getCell(enemy))){
 		if (mindist == ENGAGE_RANGE 
 			and lastdist > getCellDistance(getCell(ME), getCell(enemy)) // prevent draws
 		   ) 
