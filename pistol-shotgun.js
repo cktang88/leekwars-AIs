@@ -46,8 +46,14 @@ if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
 if(!canUseWeapon(enemy)){
 	if(canUseChip(CHIP_ICE, enemy)) {
 		useChip(CHIP_ICE, enemy)
+		useChip(CHIP_ICE, enemy)
+		useChip(CHIP_ICE, enemy)
+		useChip(CHIP_ICE, enemy)
 	}
 	if(canUseChip(CHIP_SPARK, enemy)) {
+		useChip(CHIP_SPARK, enemy)
+		useChip(CHIP_SPARK, enemy)
+		useChip(CHIP_SPARK, enemy)
 		useChip(CHIP_SPARK, enemy)
 	}
 	if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
