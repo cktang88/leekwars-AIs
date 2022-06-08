@@ -10,6 +10,7 @@ global lastdist
 
 var ME = getEntity()
 if(!getWeapon(ME)) {
+say('How Do You Do, Fellow Kids?')
 setWeapon(WEAPON_SHOTGUN);
 }
 
@@ -31,7 +32,13 @@ if(!canUseWeapon(enemy) and getWeapon() == WEAPON_SHOTGUN and canUseWeapon(WEAPO
 }
 var dist = getCellDistance(getCell(ME), getCell(enemy))
 
-if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_SHOTGUN, enemy)) { // high damage pref
+if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
+	useChip(CHIP_MOTIVATION, ME)
+	useChip(CHIP_PROTEIN, ME)
+	useChip(CHIP_HELMET, ME)
+}
+
+if(canUseChip(CHIP_ROCK, enemy) and getWeapon() != WEAPON_SHOTGUN) { // high damage pref
 	useChip(CHIP_ROCK, enemy)
 } 
 
