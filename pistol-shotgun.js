@@ -31,40 +31,48 @@ if(!canUseWeapon(enemy) and getWeapon() == WEAPON_SHOTGUN and canUseWeapon(WEAPO
 }
 var dist = getCellDistance(getCell(ME), getCell(enemy))
 
-// high damage pref
-if(canUseChip(CHIP_FLASH, enemy) and getTP() % 3 == 1 and dist > 1) { // don't selfkill lol
-	useChip(CHIP_FLASH, enemy) // perfect for 4 magic + 2x3 regular pistol
-} else if(canUseChip(CHIP_FLAME, enemy) and getTP() % 3 == 1) {
-	useChip(CHIP_FLAME, enemy) // perfect for 4 magic + 2x3 regular pistol
-}
-if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
-	useChip(CHIP_MOTIVATION, ME)
-	useChip(CHIP_PROTEIN, ME)
-	useChip(CHIP_HELMET, ME)
+if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_SHOTGUN, enemy)) { // high damage pref
+	useChip(CHIP_ROCK, enemy)
+} 
 
+// recalc for multi-enemy battles
+enemy = getNearestEnemy();
+if(canUseWeapon(enemy)){
+	useWeapon(enemy);
+	enemy = getNearestEnemy();
+	useWeapon(enemy);
+	enemy = getNearestEnemy();
+	useWeapon(enemy);
+	enemy = getNearestEnemy();
+	useWeapon(enemy);
 }
-if(!canUseWeapon(enemy)){
-	if(canUseChip(CHIP_ICE, enemy)) {
-		useChip(CHIP_ICE, enemy)
-		useChip(CHIP_ICE, enemy)
-		useChip(CHIP_ICE, enemy)
-		useChip(CHIP_ICE, enemy)
-	}
-	if(canUseChip(CHIP_SPARK, enemy)) {
-		useChip(CHIP_SPARK, enemy)
-		useChip(CHIP_SPARK, enemy)
-		useChip(CHIP_SPARK, enemy)
-		useChip(CHIP_SPARK, enemy)
-	}
-	if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
-		useChip(CHIP_CURE, ME)
-	}
-} else {
-	useWeapon(enemy);
-	useWeapon(enemy);
-	useWeapon(enemy);
-	useWeapon(enemy); // max TP is 10, + 3 from using the chip
+enemy = getNearestEnemy();
+// TODO: if afterwards still have some TP left (from motivation), use spell
+if(canUseChip(CHIP_FLASH, enemy) and dist > 1) { // don't selfkill lol
+	useChip(CHIP_FLASH, enemy)
+} 
+if(canUseChip(CHIP_FLAME, enemy)) {
+	useChip(CHIP_FLAME, enemy) // no cooldown so keep using lol
+	useChip(CHIP_FLAME, enemy)
+	useChip(CHIP_FLAME, enemy)
+	useChip(CHIP_FLAME, enemy)
 }
+if(canUseChip(CHIP_ICE, enemy)) {
+	useChip(CHIP_ICE, enemy) // no cooldown so keep using lol
+	useChip(CHIP_ICE, enemy)
+	useChip(CHIP_ICE, enemy)
+	useChip(CHIP_ICE, enemy)
+}
+if(canUseChip(CHIP_SPARK, enemy)) {
+	useChip(CHIP_SPARK, enemy) // no cooldown so keep using lol
+	useChip(CHIP_SPARK, enemy)
+	useChip(CHIP_SPARK, enemy)
+	useChip(CHIP_SPARK, enemy)
+}
+if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
+	useChip(CHIP_CURE, ME)
+}
+
 enemy = getNearestEnemy();
 dist = getCellDistance(getCell(ME), getCell(enemy))
 if (dist == 1 or dist ==2 and lineOfSight(getCell(), getCell(enemy))){
