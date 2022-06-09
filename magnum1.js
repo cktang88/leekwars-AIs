@@ -15,6 +15,15 @@ setWeapon(WEAPON_MAGNUM); // Warning: costs 1 TP
 
 // We get the nearest enemy
 var enemy = getNearestEnemy();
+var dist = getCellDistance(getCell(ME), getCell(enemy))
+
+if(canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
+	debug('retreating')
+	useChip(CHIP_KNOWLEDGE, ME)
+	useChip(CHIP_CURE, ME)
+	moveAwayFrom(enemy, max(0, getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy) - dist + 1))
+	return;
+}
 
 // We move towards him
 while(getMP(ME) > 0){
@@ -34,8 +43,7 @@ while(getMP(ME) > 0){
 	}
    moveToward(enemy, 1);
 }
-
-var dist = getCellDistance(getCell(ME), getCell(enemy))
+dist = getCellDistance(getCell(ME), getCell(enemy))
 
 if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
 	useChip(CHIP_MOTIVATION, ME)
@@ -85,8 +93,6 @@ if(canUseChip(CHIP_SPARK, enemy)) {
 if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
 	useChip(CHIP_CURE, ME)
 }
-
-// if(canUseWeapon(WEAPON_PISTOL, enemy) and !canUseWeapon(WEAPON_MACHINE_GUN, enemy)) setWeapon (WEAPON_PISTOL)
 
 
 enemy = getNearestEnemy();
