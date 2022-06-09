@@ -17,7 +17,9 @@ setWeapon(WEAPON_MAGNUM); // Warning: costs 1 TP
 var enemy = getNearestEnemy();
 var dist = getCellDistance(getCell(ME), getCell(enemy))
 
-if(canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
+var canSafeRetreat = canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)
+
+if(canSafeRetreat or getLife(ME) < 100 and getLife(enemy) > 200){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
 	useChip(CHIP_CURE, ME)
@@ -44,12 +46,28 @@ while(getMP(ME) > 0){
    moveToward(enemy, 1);
 }
 dist = getCellDistance(getCell(ME), getCell(enemy))
+var pathlen = getPathLength(getCell(), getCell(enemy))
 
-if(!canUseWeapon(enemy) and dist <= ENGAGE_RANGE) {
-	useChip(CHIP_MOTIVATION, ME)
-	useChip(CHIP_PROTEIN, ME)
-	useChip(CHIP_HELMET, ME)
+if(!canUseWeapon(enemy) and pathlen <= ENGAGE_RANGE + 4) {
+	// 3-turn cooldown chips
+	if(canUseChip(CHIP_SOLIDIFICATION, ME)){
+	useChip(CHIP_SOLIDIFICATION, ME)
+	}
+	if(canUseChip(CHIP_SHIELD, ME)){
+		useChip(CHIP_SHIELD, ME)
+	}
+}
 
+if(dist <= ENGAGE_RANGE){
+	var isFullHealth = getLife() == getTotalLife()
+	// don't go into first fight without buff
+	if(!canUseWeapon(enemy) 
+	   or canUseChip(CHIP_MOTIVATION, ME) and isFullHealth
+	  ) {
+		useChip(CHIP_MOTIVATION, ME)
+		useChip(CHIP_PROTEIN, ME)
+		useChip(CHIP_HELMET, ME)
+	}
 }
 
 if(canUseChip(CHIP_ROCK, enemy)) { // high damage pref
