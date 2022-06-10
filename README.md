@@ -10,4 +10,6 @@ lvl 27-34: magnum
 
 lvl 34-48: magnum + sword
 
-lvl 49+: magnum + laser (upgrade to 12 energy)
+```lvl 44: <upgrade to 12 energy>```
+
+lvl 49+: magnum + laser
