@@ -8,6 +8,6 @@ lvl 16-26: pistol + shotgun (upgrade to 4 move)
 
 lvl 27-34: magnum
 
-lvl 34-42: magnum + sword
+lvl 34-44: magnum + sword
 
-lvl 42+: magnum + laser (upgrade to 12 energy)
+lvl 44+: magnum + laser (upgrade to 12 energy)
