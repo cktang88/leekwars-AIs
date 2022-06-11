@@ -60,13 +60,13 @@ while(getMP(ME) > 0 and getPathLength(getCell(ME), getCell(enemy)) > 1){ // prev
 }
 dist = getCellDistance(getCell(), getCell(enemy))
 
-if(!canUseWeapon(enemy) and getWeapon() == WEAPON_LASER) {
+if(!canUseWeapon(enemy) and getWeapon() == WEAPON_DOUBLE_GUN) {
 	debug('try swap #1')
 	if(dist == 1){
 	    moveAwayFrom(enemy, 1) // try to back up, may fail if cornered
 	}
-	if(!canUseWeapon(enemy)){
-		setWeapon(WEAPON_MAGNUM)
+	if(!canUseWeapon(enemy) and canUseWeapon(WEAPON_SHOTGUN)){
+		setWeapon(WEAPON_SHOTGUN)
 	}
 }
 dist = getCellDistance(getCell(), getCell(enemy))
@@ -93,7 +93,7 @@ if(canUseChip(CHIP_STALACTITE, enemy)) {
 	useChip(CHIP_STALACTITE, enemy) // highest damage
 } 
 
-if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_LASER, enemy)) { 
+if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_DOUBLE_GUN, enemy)) { 
 	// laser > rock > magnum
 	// 2 * laser > rock + magnum
 	useChip(CHIP_ROCK, enemy)
@@ -103,37 +103,40 @@ if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_LASER, enemy)) {
 enemy = getNearestEnemy();
 dist = getCellDistance(getCell(), getCell(enemy))
 if(canUseWeapon(enemy)) {
-	if(getWeapon() == WEAPON_MAGNUM){
+	if(getWeapon() == WEAPON_SHOTGUN){
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
-		if(canUseWeapon(WEAPON_LASER, enemy)) {
-			setWeapon(WEAPON_LASER) // 5 + 1 + 6 = 12 TP
+		/*
+		if(canUseWeapon(WEAPON_DOUBLE_GUN, enemy)) {
+			setWeapon(WEAPON_DOUBLE_GUN) // 5 + 1 + 6 = 12 TP
 		} else {
 			debug('try swap #2')
-			if(getMP(ME) > 0 and lineOfSight(getCell(), getCell(enemy)) and getTP() >= 7) { // try moving one space and then swapping if can use this turn
+			if(getMP(ME) > 0 and lineOfSight(getCell(), getCell(enemy)) and getTP() >= 5) { // try moving one space and then swapping if can use this turn
 				if(dist == 1){
 					moveAwayFrom(enemy, 1)
 				}
-				if(canUseWeapon(WEAPON_LASER, enemy)) {
-					setWeapon(WEAPON_LASER)
+				if(canUseWeapon(WEAPON_DOUBLE_GUN, enemy)) {
+					setWeapon(WEAPON_DOUBLE_GUN)
 				}
 			}
-		}
+		}*/
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
-	} else if (getWeapon() == WEAPON_LASER){
+	} else if (getWeapon() == WEAPON_DOUBLE_GUN){
+		useWeapon(enemy);
+		enemy = getNearestEnemy();
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 	}
 } else {
-	if (canUseWeapon(WEAPON_MAGNUM, enemy) and getWeapon() == WEAPON_LASER) {
+	if (canUseWeapon(WEAPON_DOUBLE_GUN, enemy) and getWeapon() == WEAPON_SHOTGUN) {
 		// switch and fire
-		setWeapon(WEAPON_MAGNUM)
+		setWeapon(WEAPON_DOUBLE_GUN)
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
@@ -179,7 +182,7 @@ if(canUseChip(CHIP_SPARK, enemy)) {
 	}
 
 }
-if(canUseChip(CHIP_KNOWLEDGE, ME)){
+if(canUseChip(CHIP_KNOWLEDGE, ME) and getLife() < getTotalLife()){
 	// always use knowledge before cure
 	// usually happens here when killed an enemy in one hit, still got TP left
 	useChip(CHIP_KNOWLEDGE, ME)
