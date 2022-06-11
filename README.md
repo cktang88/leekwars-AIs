@@ -11,5 +11,8 @@ lvl 27-34: magnum
 lvl 34-48: magnum + sword
 
 ```lvl 44: <upgrade to 12 energy>```
+```lvl 48: <equip leek>```
 
+experimental (not that good): 
 lvl 49+: magnum + laser
+lvl 60: venom?
