@@ -71,6 +71,11 @@ if(dist <= ENGAGE_RANGE){
 	}
 }
 
+if(canUseChip(CHIP_STALACTITE, enemy)) { 
+	useChip(CHIP_STALACTITE, enemy) // highest damage
+} 
+
+
 if(canUseChip(CHIP_ROCK, enemy)) { // high damage pref
 	useChip(CHIP_ROCK, enemy)
 } 
