@@ -14,7 +14,7 @@ lvl 34+: magnum + sword
 
 ```lvl 48: <equip leek>```
 
-```lvl 65: <upgrade to 14 energy>```
+```lvl 65 or so: <upgrade to 15 energy>```
 
 
 
