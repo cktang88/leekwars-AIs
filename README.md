@@ -8,9 +8,10 @@ lvl 16-26: pistol + shotgun (upgrade to 4 move)
 
 lvl 27-34: magnum
 
-lvl 34-48: magnum + sword
+lvl 34+: magnum + sword
 
 ```lvl 44: <upgrade to 12 energy>```
+
 ```lvl 48: <equip leek>```
 
 experimental (not that good): 
