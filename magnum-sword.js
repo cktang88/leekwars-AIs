@@ -4,6 +4,7 @@
  * To learn the LeekScript language: leekwars.com/help/tutorial
  * To learn more about the available functions: leekwars.com/help/documentation
 **/
+include('bulb')
 
 global lastdist
 
@@ -17,9 +18,13 @@ setWeapon(WEAPON_MAGNUM); // Warning: costs 1 TP
 var enemy = getNearestEnemy();
 var dist = getCellDistance(getCell(ME), getCell(enemy))
 
+// always summon lol
+summon(CHIP_PUNY_BULB, getCell(ME) - 1, bulbAI)
+
+
 var canSafeRetreat = canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and dist + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)
 
-if(canSafeRetreat or getLife(ME) < 100 and getLife(enemy) > 200){
+if(canSafeRetreat or getLife(ME) < 100 and getLife(enemy) > 250){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
 	useChip(CHIP_CURE, ME)
@@ -28,8 +33,8 @@ if(canSafeRetreat or getLife(ME) < 100 and getLife(enemy) > 200){
 	return;
 }
 
-// We move towards him
-while(getMP(ME) > 0){
+
+while(getMP(ME) > 0 and getTurn() > 1){// stay back a bit to wait for bulb
 	enemy = getNearestEnemy();
 	var mindist = getPathLength(getCell(ME), getCell(enemy))
 	if(mindist < 1){
