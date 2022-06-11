@@ -14,6 +14,10 @@ lvl 34+: magnum + sword
 
 ```lvl 48: <equip leek>```
 
-experimental (not that good): 
+
+
+#### experimental (not that good):
+
 lvl 49+: magnum + laser
+
 lvl 60: venom?
