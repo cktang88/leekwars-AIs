@@ -16,6 +16,9 @@ lvl 34+: magnum + sword
 
 ```lvl 65 or so: <upgrade to 15 energy>```
 
+OR:
+lvl 75+: double gun + shotgun, upgrade to 200 magic + 14 energy
+
 
 
 #### experimental (not that good):
