@@ -20,10 +20,17 @@ var enemy = getNearestEnemy();
 var dist = getCellDistance(getCell(), getCell(enemy))
 pathlen = getPathLength(getCell(), getCell(enemy))
 
-// always summon lol
-summon(CHIP_PUNY_BULB, getCell(ME) - 1, bulbAI)
+if(count(getSummons()) <=1){
+	summon(CHIP_PUNY_BULB, getCell(ME) - 1, bulbAI)
+}
 
-
+if(canUseChip(CHIP_VACCINE, ME) and getCooldown(CHIP_VACCINE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and pathlen + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
+	debug('retreating')
+	useChip(CHIP_KNOWLEDGE, ME)
+	useChip(CHIP_VACCINE, ME)
+	moveAwayFrom(enemy, max(0, getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy) - dist + 1))
+	return;
+}
 if(canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and pathlen + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
@@ -36,6 +43,7 @@ if(canUseChip(CHIP_VENOM, enemy)) {
 }
 if(getWisdom(ME) > 100 and getLife(ME) < getTotalLife(ME) * 0.8){
 	// obv has a buff, probably from last turn
+	useChip(CHIP_VACCINE, ME)
 	useChip(CHIP_CURE, ME)
 }
 
@@ -75,6 +83,7 @@ pathlen = getPathLength(getCell(), getCell(enemy))
 if(!canUseWeapon(enemy) and pathlen <= ENGAGE_RANGE + 4) {
 	// 3-turn cooldown chips
 	useChip(CHIP_SOLIDIFICATION, ME)
+	useChip(CHIP_ARMOR, ME)
 	useChip(CHIP_SHIELD, ME)
 }
 
@@ -86,6 +95,7 @@ if(dist <= ENGAGE_RANGE){
 	  ) {
 		useChip(CHIP_MOTIVATION, ME)
 		useChip(CHIP_PROTEIN, ME)
+		useChip(CHIP_ARMOR, ME)
 		useChip(CHIP_HELMET, ME)
 	}
 }
@@ -125,7 +135,13 @@ if(canUseWeapon(enemy)) {
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
+		enemy = getNearestEnemy();
+		useWeapon(enemy);
 	} else if (getWeapon() == WEAPON_DOUBLE_GUN){
+		useWeapon(enemy);
+		enemy = getNearestEnemy();
+		useWeapon(enemy);
+		enemy = getNearestEnemy();
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
@@ -137,6 +153,8 @@ if(canUseWeapon(enemy)) {
 	if (canUseWeapon(WEAPON_DOUBLE_GUN, enemy) and getWeapon() == WEAPON_SHOTGUN) {
 		// switch and fire
 		setWeapon(WEAPON_DOUBLE_GUN)
+		useWeapon(enemy);
+		enemy = getNearestEnemy();
 		useWeapon(enemy);
 		enemy = getNearestEnemy();
 		useWeapon(enemy);
@@ -167,6 +185,8 @@ if(canUseChip(CHIP_FLAME, enemy)) {
 		useChip(CHIP_FLAME, enemy)
 		useChip(CHIP_FLAME, enemy)
 		useChip(CHIP_FLAME, enemy)
+		useChip(CHIP_FLAME, enemy)
+		useChip(CHIP_FLAME, enemy)
 	}
 }
 
@@ -179,6 +199,8 @@ if(canUseChip(CHIP_SPARK, enemy)) {
 		useChip(CHIP_SPARK, enemy)
 		useChip(CHIP_SPARK, enemy)
 		useChip(CHIP_SPARK, enemy)
+		useChip(CHIP_SPARK, enemy)
+		useChip(CHIP_SPARK, enemy)
 	}
 
 }
@@ -186,6 +208,9 @@ if(canUseChip(CHIP_KNOWLEDGE, ME) and getLife() < getTotalLife()){
 	// always use knowledge before cure
 	// usually happens here when killed an enemy in one hit, still got TP left
 	useChip(CHIP_KNOWLEDGE, ME)
+}
+if(canUseChip(CHIP_VACCINE, ME) and getLife(ME) < getTotalLife(ME)){
+	useChip(CHIP_VACCINE, ME)
 }
 if(canUseChip(CHIP_CURE, ME) and getLife(ME) < getTotalLife(ME)){
 	useChip(CHIP_CURE, ME)
