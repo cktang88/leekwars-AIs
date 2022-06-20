@@ -30,7 +30,7 @@
             pointBackgroundColor: function (context) {
               var index = context.dataIndex;
               var value = context.dataset.data[index].id;
-              return `hsl(${120 - (value / MAX_LEEK_ID) * 120}deg, 80%, 45%)`;
+              return `hsl(${(value / MAX_LEEK_ID) * 120}deg, 100%, 40%)`;
             },
           },
         ],
