@@ -19,8 +19,20 @@
         datasets: [
           {
             label: "Scatter Dataset",
-            data: processedData.map((d) => ({ x: d.level, y: d.talent })),
-            backgroundColor: "rgb(255, 99, 132)",
+            data: processedData.map((d) => ({
+              x: d.level,
+              y: d.talent,
+              name: d.name,
+              id: d.id,
+            })),
+            // backgroundColor: "rgb(70, 49, 162)",
+            pointBackgroundColor: function (context) {
+              var index = context.dataIndex;
+              var value = context.dataset.data[index].id;
+              return `rgba(${(value / 100000) * 255}, ${
+                255 - (value / 100000) * 255
+              }, 0, 1)`;
+            },
           },
         ],
       };
