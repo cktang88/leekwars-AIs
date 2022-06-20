@@ -1,4 +1,8 @@
 # leekwars-AIs
+
+top 10K Leek rankings: https://leekwars-talent.netlify.app/
+
+
 for https://leekwars.com
 
 
