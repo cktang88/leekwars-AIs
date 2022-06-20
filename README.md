@@ -21,7 +21,7 @@ lvl 34+: magnum + sword
 ```lvl 65 or so: <upgrade to 15 energy>```
 
 OR:
-lvl 75+: double gun + shotgun, upgrade to 200 magic + 14 energy
+lvl 75-99: double gun + shotgun, upgrade to 200 magic + 14 energy (and later to 16 energy)
 
 TODO: update "venom-shotgun" script to use new chips :)
 
