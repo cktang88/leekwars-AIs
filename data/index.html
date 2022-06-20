@@ -18,7 +18,7 @@
       const data = {
         datasets: [
           {
-            label: "Scatter Dataset",
+            label: "leeks",
             data: processedData.map((d) => ({
               x: d.level,
               y: d.talent,
@@ -45,6 +45,23 @@
             x: {
               type: "linear",
               position: "bottom",
+              title: {
+                display: true,
+                text: "Leek Level (Linear)",
+              },
+            },
+            y: {
+              type: "logarithmic",
+              title: {
+                display: true,
+                text: "Leek Talent (Logarithmic)",
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Leek Level vs Talent",
             },
           },
           //   interaction: {
