@@ -30,9 +30,7 @@
             pointBackgroundColor: function (context) {
               var index = context.dataIndex;
               var value = context.dataset.data[index].id;
-              return `rgba(${(value / MAX_LEEK_ID) * 255}, ${
-                255 - (value / MAX_LEEK_ID) * 255
-              }, 0, 1)`;
+              return `hsl(${120 - (value / MAX_LEEK_ID) * 120}deg, 80%, 45%)`;
             },
           },
         ],
@@ -50,6 +48,7 @@
                 display: true,
                 text: "Leek Level (Linear)",
               },
+              max: 310,
             },
             y: {
               type: "logarithmic",
@@ -57,6 +56,7 @@
                 display: true,
                 text: "Leek Talent (Logarithmic)",
               },
+              min: 200,
             },
           },
           plugins: {
@@ -70,6 +70,15 @@
               text: "(newer leeks = green, older leeks = red)",
               size: 16,
             },
+            // tooltip: {
+            //   callbacks: {
+            //     footer: (context) => {
+            //       //   let leek = context.dataset.data[context.dataIndex];
+            //       return JSON.stringify(Object.keys(context));
+            //       //   return leek.name + " (" + leek.level + ")";
+            //     },
+            //   },
+            // },
           },
           //   interaction: {
           //     mode: "nearest",
