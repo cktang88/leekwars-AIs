@@ -7,9 +7,15 @@ chunks.forEach((chunk) => {
   allLeeks = allLeeks.concat(flattened);
 });
 
-allLeeks.map((l) => ({
+allLeeks = allLeeks.map((l) => ({
   talent: l.talent,
   level: l.level,
   name: l.name,
   id: l.id, // roughly correlated w/ age
 }));
+
+const fs = require("fs");
+let content = "window.processedData = " + JSON.stringify(allLeeks);
+fs.writeFile("./data/processed/out.js", content, (err) => {
+  console.error(err);
+});

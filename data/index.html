@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="./processed/out.js"></script>
+    <script>
+      console.log(window.processedData);
+      const labels = ["January", "February", "March", "April", "May", "June"];
+      const data = {
+        datasets: [
+          {
+            label: "Scatter Dataset",
+            data: processedData.map((d) => ({ x: d.level, y: d.talent })),
+            backgroundColor: "rgb(255, 99, 132)",
+          },
+        ],
+      };
+
+      const config = {
+        type: "scatter",
+        data: data,
+        options: {
+          scales: {
+            x: {
+              type: "linear",
+              position: "bottom",
+            },
+          },
+          //   interaction: {
+          //     mode: "nearest",
+          //   },
+        },
+      };
+
+      const myChart = new Chart(document.getElementById("myChart"), config);
+    </script>
+  </body>
+</html>
