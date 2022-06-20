@@ -13,24 +13,38 @@
 
     <script src="./processed/out.js"></script>
     <script>
+      /*
+        IDS:
+        52k = 2016
+        71k = april 2019
+        76k = may 2020
+        77k = october 2020
+        84k = june 2022
+        */
       let MAX_LEEK_ID = Math.max(...processedData.map((e) => e.id));
       console.log(MAX_LEEK_ID);
-      const labels = ["January", "February", "March", "April", "May", "June"];
       const data = {
         datasets: [
           {
             label: "leeks",
-            data: processedData.map((d) => ({
-              x: d.level,
-              y: d.talent,
-              name: d.name,
-              id: d.id,
-            })),
+            data: processedData
+              .sort((a, b) => a.id - b.id)
+              .map((d) => ({
+                x: d.level,
+                y: d.talent,
+                name: d.name,
+                id: d.id,
+              })),
             // backgroundColor: "rgb(70, 49, 162)",
             pointBackgroundColor: function (context) {
               var index = context.dataIndex;
               var value = context.dataset.data[index].id;
-              return `hsl(${(value / MAX_LEEK_ID) * 120}deg, 100%, 40%)`;
+              var FLOOR = 75000;
+              return value < FLOOR
+                ? "lightgray"
+                : `hsl(${
+                    ((value - FLOOR) / (MAX_LEEK_ID - FLOOR)) * 120
+                  }deg, 100%, 40%)`;
             },
           },
         ],
@@ -47,6 +61,9 @@
               title: {
                 display: true,
                 text: "Leek Level (Linear)",
+                font: {
+                  size: 18,
+                },
               },
               max: 310,
             },
@@ -55,6 +72,9 @@
               title: {
                 display: true,
                 text: "Leek Talent (Logarithmic)",
+                font: {
+                  size: 18,
+                },
               },
               min: 200,
             },
@@ -63,12 +83,16 @@
             title: {
               display: true,
               text: "Top 10K leeks: Level vs Talent",
-              size: 24,
+              font: {
+                size: 24,
+              },
             },
             subtitle: {
               display: true,
-              text: "(newer leeks = green, older leeks = red)",
-              size: 16,
+              text: "COLOR: GREEN = newer, RED = older. Leeks before ~2019 are gray.",
+              font: {
+                size: 16,
+              },
             },
             // tooltip: {
             //   callbacks: {
