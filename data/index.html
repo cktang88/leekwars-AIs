@@ -13,7 +13,8 @@
 
     <script src="./processed/out.js"></script>
     <script>
-      console.log(window.processedData);
+      let MAX_LEEK_ID = Math.max(...processedData.map((e) => e.id));
+      console.log(MAX_LEEK_ID);
       const labels = ["January", "February", "March", "April", "May", "June"];
       const data = {
         datasets: [
@@ -29,8 +30,8 @@
             pointBackgroundColor: function (context) {
               var index = context.dataIndex;
               var value = context.dataset.data[index].id;
-              return `rgba(${(value / 100000) * 255}, ${
-                255 - (value / 100000) * 255
+              return `rgba(${(value / MAX_LEEK_ID) * 255}, ${
+                255 - (value / MAX_LEEK_ID) * 255
               }, 0, 1)`;
             },
           },
@@ -61,7 +62,13 @@
           plugins: {
             title: {
               display: true,
-              text: "Leek Level vs Talent",
+              text: "Top 10K leeks: Level vs Talent",
+              size: 24,
+            },
+            subtitle: {
+              display: true,
+              text: "(newer leeks = green, older leeks = red)",
+              size: 16,
             },
           },
           //   interaction: {
