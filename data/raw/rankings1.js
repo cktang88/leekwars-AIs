@@ -1,4 +1,4 @@
-let rankings1 = [
+module.exports = [
   {
     ranking: [
       {
