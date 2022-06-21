@@ -26,23 +26,22 @@ if(count(getSummons()) == 0){
 	summon(CHIP_PUNY_BULB, getCell(ME) + 1, bulbAI)
 }
 
-if(canUseChip(CHIP_VACCINE, ME) and getCooldown(CHIP_VACCINE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and pathlen + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
+if(canUseChip(CHIP_VACCINE, ME) and getCooldown(CHIP_VACCINE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.5 and pathlen + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
 	useChip(CHIP_VACCINE, ME)
 	moveAwayFrom(enemy, max(0, getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy) - dist + 1))
 	return;
 }
+/*
 if(canUseChip(CHIP_CURE, ME) and getCooldown(CHIP_CURE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.7 and pathlen + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
 	debug('retreating')
 	useChip(CHIP_KNOWLEDGE, ME)
 	useChip(CHIP_CURE, ME)
 	moveAwayFrom(enemy, max(0, getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy) - dist + 1))
 	return;
-}
-if(canUseChip(CHIP_VENOM, enemy)) {
-	useChip(CHIP_VENOM, enemy)
-}
+}*/
+
 if(getWisdom(ME) > 100 and getLife(ME) < getTotalLife(ME) * 0.8){
 	// obv has a buff, probably from last turn
 	useChip(CHIP_VACCINE, ME)
@@ -77,7 +76,7 @@ if(!canUseWeapon(enemy) and getWeapon() == WEAPON_FLAME_THROWER) {
 	if(dist == 1){
 	    moveAwayFrom(enemy, 1) // try to back up, may fail if cornered
 	}
-	if(!canUseWeapon(enemy) and canUseWeapon(WEAPON_DESTROYER)){
+	if(!canUseWeapon(enemy) and canUseWeapon(WEAPON_DESTROYER, enemy)){
 		setWeapon(WEAPON_DESTROYER)
 	}
 }
@@ -103,25 +102,22 @@ if(dist <= ENGAGE_RANGE){
 		useChip(CHIP_HELMET, ME)
 	}
 }
+
+
 if(canUseChip(CHIP_STALACTITE, enemy)) { 
 	useChip(CHIP_STALACTITE, enemy) // highest damage
-} 
-
-if(canUseChip(CHIP_ROCK, enemy) and !canUseWeapon(WEAPON_FLAME_THROWER, enemy)) { 
-	// laser > rock > magnum
-	// 2 * laser > rock + magnum
-	useChip(CHIP_ROCK, enemy)
 } 
 
 // recalc for multi-enemy battles
 enemy = getNearestEnemy();
 dist = getCellDistance(getCell(), getCell(enemy))
-if(canUseWeapon(WEAPON_FLAME_THROWER)) {
+if(canUseWeapon(WEAPON_FLAME_THROWER, enemy)) {
 	if(getWeapon() != WEAPON_FLAME_THROWER){
 		setWeapon(WEAPON_FLAME_THROWER)
 	}
 } else {
-	if(canUseWeapon(WEAPON_DESTROYER) and getWeapon() != WEAPON_DESTROYER){
+	debug('foo')
+	if(canUseWeapon(WEAPON_DESTROYER, enemy) and getWeapon() != WEAPON_DESTROYER){
 		setWeapon(WEAPON_DESTROYER)
 	}
 }
@@ -158,6 +154,14 @@ if(dist <= ENGAGE_RANGE){
 	useChip(CHIP_PROTEIN, ME)
 	useChip(CHIP_HELMET, ME)
 }
+
+if(canUseChip(CHIP_VENOM, enemy)) {
+	useChip(CHIP_VENOM, enemy)
+}
+
+if(canUseChip(CHIP_ROCK, enemy)) { 
+	useChip(CHIP_ROCK, enemy)
+} 
 
 if(canUseChip(CHIP_FLASH, enemy) and dist > 1) { // don't selfkill lol
 	useChip(CHIP_FLASH, enemy)
@@ -212,6 +216,9 @@ if(count(getSummons()) == 0){
 	// fallback
 	summon(CHIP_PUNY_BULB, getCell(ME) + 1, bulbAI)
 }
+
+// set back to flamethrower so next turn moves properly
+setWeapon(WEAPON_FLAME_THROWER)
 
 enemy = getNearestEnemy();
 // try moving away (max move 4)
