@@ -41,7 +41,9 @@ if(getWisdom(ME) > 100 and getLife(ME) < getTotalLife(ME) * 0.8){
 while(getMP(ME) > 0 and getTurn() > 1){ // prevent inf loops
 	enemy = getNearestEnemy();
 	var mindist = getPathLength(getCell(ME), getCell(enemy))
-
+	if(mindist <= 1){
+		break
+	}
 	if(canUseWeapon(enemy)){
 		break
 	} 
