@@ -4,7 +4,9 @@ function bulbAI(){
 	// We move towards him
 	moveToward(master);
 
-	useChip(CHIP_HELMET, master);
+	if(search(getEffects(master), EFFECT_ABSOLUTE_SHIELD) == null){
+		useChip(CHIP_HELMET, master);
+	}
 	if(getLife(master) < getTotalLife(master)){
 		useChip(CHIP_BANDAGE, master);
 	}
