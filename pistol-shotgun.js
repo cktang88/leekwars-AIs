@@ -21,6 +21,9 @@ var ENGAGE_RANGE = getWeaponMaxRange(getWeapon(enemy))+6 // 6 chosen b/c likely 
 // We move towards him
 while(getMP(ME) > 0){
 	var mindist = getPathLength(getCell(ME), getCell(enemy))
+	if(mindist <= 1){
+		break
+	}
 	if(canUseWeapon(enemy)){
 		break
 	}
