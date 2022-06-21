@@ -53,7 +53,7 @@ if(getWisdom(ME) > 100 and getLife(ME) < getTotalLife(ME) * 0.8){
 while(getMP(ME) > 0 and getTurn() > 1){// stay back a bit to wait for bulb
 	enemy = getNearestEnemy();
 	var mindist = getPathLength(getCell(ME), getCell(enemy))
-	if(mindist < 1){
+	if(mindist <= 1){
 		break
 	}
 	if(canUseWeapon(WEAPON_FLAME_THROWER, enemy) or canUseWeapon(enemy)){
