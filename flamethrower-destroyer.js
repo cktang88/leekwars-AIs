@@ -11,19 +11,27 @@ global lastdist
 
 var ME = getEntity()
 var ENGAGE_RANGE = getWeaponMaxRange(WEAPON_FLAME_THROWER)+6 // 6 chosen b/c likely sum(moves) > 6 while enemy move likely < 6
-if(!getWeapon(ME)) {
-setWeapon(WEAPON_FLAME_THROWER); // initial weapon
-}
 
 var pathlen = null
 var enemy = getNearestEnemy();
 var dist = getCellDistance(getCell(), getCell(enemy))
 pathlen = getPathLength(getCell(), getCell(enemy))
 
-if(count(getSummons()) == 0){
+if(count(getSummons()) ==0){
+	// 16 energy first turn = can summon two bulbs
 	summon(CHIP_PUNY_BULB, getCell(ME) - 1, bulbAI)
 	// fallback
 	summon(CHIP_PUNY_BULB, getCell(ME) + 1, bulbAI)
+	summon(CHIP_PUNY_BULB, getCell(ME) + 2, bulbAI)
+
+	summon(CHIP_ROCKY_BULB, getCell(ME) - 1, bulbAI)
+	// fallback
+	summon(CHIP_ROCKY_BULB, getCell(ME) + 1, bulbAI)
+	summon(CHIP_ROCKY_BULB, getCell(ME) + 2, bulbAI)
+}
+
+if(!getWeapon(ME)) {
+setWeapon(WEAPON_FLAME_THROWER); // initial weapon
 }
 
 if(canUseChip(CHIP_VACCINE, ME) and getCooldown(CHIP_VACCINE, ME) == 0 and getLife(ME) < getTotalLife(ME) * 0.5 and pathlen + getMP() > getWeaponMaxRange(getWeapon(enemy)) + getMP(enemy)){
