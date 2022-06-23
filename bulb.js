@@ -15,7 +15,13 @@ function bulbAI(){
 	if(canUseChip(CHIP_PEBBLE, enemy)){
 		useChip(CHIP_PEBBLE, enemy);
 	}
-	if(getLife(master) < 150){
+	if(canUseChip(CHIP_ROCK, enemy)){
+		useChip(CHIP_ROCK, enemy);
+	}
+	if(canUseChip(CHIP_ROCKFALL, enemy)){
+		useChip(CHIP_ROCKFALL, enemy);
+	}
+	if(getLife(master) < 200){
 		// self-sacrifice lol
 		moveToward(enemy)
 	}else {
