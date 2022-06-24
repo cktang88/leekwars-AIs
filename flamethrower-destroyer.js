@@ -5,6 +5,12 @@
  * To learn more about the available functions: leekwars.com/help/documentation
 **/
 
+function getPoisonSum(){
+	var poisons = arrayFilter(getEffects(), function (e) { return e[0] == EFFECT_POISON})
+	var vals = arrayMap(poisons, function(e){ return e[1]})
+	return sum(vals)
+}
+
 include('bulb')
 
 global lastdist
@@ -17,7 +23,13 @@ var enemy = getNearestEnemy();
 var dist = getCellDistance(getCell(), getCell(enemy))
 pathlen = getPathLength(getCell(), getCell(enemy))
 
-if(count(getSummons()) ==0){
+debug('POISON: ' + getPoisonSum())
+if(getPoisonSum() > 150){
+	useChip(CHIP_ANTIDOTE, ME)
+}
+
+// only summon if >50% health
+if(count(getSummons()) == 0 and getLife() > getTotalLife()/2){
 	// 16 energy first turn = can summon two bulbs
 	summon(CHIP_PUNY_BULB, getCell(ME) - 1, bulbAI)
 	// fallback
